@@ -37,6 +37,28 @@ chmod u+x /scripts/base-laptop.sh
 # Please edit the appropriate values in the files before running them 
 
 ./scripts/base-laptop.sh
+
+# Reboot
+exit
+reboot
+
+# LOGIN
+cd cd ~
+
+mkdir git
+
+cd git
+
+git clone https://github.com/larsbarkman/yapci.git
+
+cd yapci
+
+chmod u+x /scripts/post-base.sh
+
+# Please edit the appropriate values in the files before running them 
+
+./scripts/base-laptop.sh
+
 ```
 
 ## Other scripts

@@ -50,7 +50,7 @@ mount /dev/vg0/home /mnt/home
 swapon /dev/vg0/swap
 
 # Download needed packages and install with pacstrap
-pacstrap /mnt base base-devel linux linux-firmware lvm2 intel-ucode man-db man-pages iproute2 dhcpcd networkmanager firewalld reflector vi powertop
+pacstrap /mnt base base-devel linux linux-firmware lvm2 intel-ucode man-db man-pages iproute2 dhcpcd networkmanager firewalld reflector vi powertop git
 
 # Create file systems table (fstab) 
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -95,3 +95,9 @@ UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 
 # Print to see that it worked
 echo "${UUID}"
+
+# Install boot loader (systemd-boot)
+bootctl --path=/boot install
+
+# Check content of "/boot/loader/loader.conf" to determine how to handle the file (create lines or change them)
+# Check content of "/boot/loader/entries/arch.conf" to determine how to handle the file (create lines or change them)
