@@ -57,7 +57,7 @@ chmod u+x /scripts/post-base.sh
 
 # Please edit the appropriate values in the files before running them 
 
-./scripts/base-laptop.sh
+./scripts/post-base.sh
 
 ```
 
