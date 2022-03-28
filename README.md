@@ -87,7 +87,7 @@ By having a single repository containing all files needed to automatically insta
 
 `# chmod u+x /scripts/post-base.sh`  
 
-# Please edit the appropriate values in the files before running them 
+### Please edit the appropriate values in the files before running them 
 
 `# ./scripts/post-base.sh`  
 
