@@ -17,13 +17,17 @@ hostname = "Set hostname here"
 root_passphrase = "Set root passphrase here"
 
 # Memory cell clearing of the disk
+echo "Memory cell clearing of the disk - DOING"
 pacman -Sy nvme-cli --noconfirm
 nvme format /dev/nvme0 -s 1 -n 1 -f
+echo "Memory cell clearing of the disk - DONE"
 
 # Partition the drive
+echo "Partition the drive - DOING"
 sgdisk --zap-all /dev/nvme0n1
 sgdisk -n 0:0:+1GiB -t 0:ef00 -c 0:boot /dev/nvme0n1
 sgdisk -n 0:0:0 -t 0:8300 -c 0:lvm /dev/nvme0n1
+echo "Partition the drive - DONE"
 
 # Make file system
 mkfs.msdos -F32 /dev/nvme0n1p1

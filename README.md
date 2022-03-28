@@ -60,7 +60,7 @@ By having a single repository containing all files needed to automatically insta
 
 `# cd yapci`  
 
-`# chmod u+x /scripts/base-laptop.sh`  
+`# chmod u+x ./scripts/base-laptop.sh`  
 
 ### Please edit the appropriate values in the files before running them 
 
