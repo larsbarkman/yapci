@@ -81,7 +81,7 @@ echo "::1 localhost" >> /etc/hosts
 echo "127.0.1.1	<set hostname here>.localdomain	<set hostname here>" >> /etc/hosts
 
 # Set a root password
-echo -n "Set root passphrase here" | passwd
+echo -n "Set root passphrase here" | passwd --stdin
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
@@ -97,7 +97,7 @@ UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 echo "${UUID}"
 
 # Install boot loader (systemd-boot)
-bootctl --path=/boot install
+bootctl --path=/mnt/boot install
 
 # Check content of "/boot/loader/loader.conf" to determine how to handle the file (create lines or change them)
 # Check content of "/boot/loader/entries/arch.conf" to determine how to handle the file (create lines or change them)

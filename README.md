@@ -101,6 +101,16 @@ By having a single repository containing all files needed to automatically insta
 
 `# ./scripts/post-base.sh` 
 
-## Other scripts
+## Other scripts and guides
 - https://dev.to/krushndayshmookh/installing-arch-linux-the-scripted-way-236c
+- https://github.com/tom5760/arch-install
+- https://github.com/classy-giraffe/easy-arch
+- https://primalcortex.wordpress.com/2018/11/23/arch-linux-with-full-encrypted-disk/
+- https://www.mpilote.com/computer/2019/10/19/install-arch-linux-on-thinkpad-x1-yoga-gen-4
+- https://medium.com/@lylejfranklin/arch-linux-install-defense-in-depth-1f788d1bf3a5
+- https://gist.github.com/stevepet/cc18f091b7cc3d4bc904515d00c86ec9
+- https://austinmorlan.com/posts/arch_linux_install/
+- https://www.nerdstuff.org/posts/2020/2020-004_arch_linux_luks_btrfs_systemd-boot/
+- https://gist.github.com/ansulev/7cdf38a3d387599adf9addd248b09db8
 - https://github.com/LukeSmithxyz/LARBS
+- https://gist.github.com/marc-fez/ca7ad54af72d353f595d08b4304fe0df
