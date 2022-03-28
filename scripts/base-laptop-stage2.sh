@@ -8,18 +8,14 @@ then
     exit
 fi
 
-# Set variables
-hostname = "Set hostname here"
-root_passphrase = "Set root passphrase here"
-
 # Create a hostname and hosts file
-echo "$hostname" >> /etc/hostname
+echo "set hostname here" > /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1 localhost" >> /etc/hosts
-echo "127.0.1.1	${hostname}.localdomain	${hostname}" >> /etc/hosts
+echo "127.0.1.1	<set hostname here>.localdomain	<set hostname here>" >> /etc/hosts
 
 # Set a root password
-echo -n "$root_passphrase" | passwd
+echo -n "Set root passphrase here" | passwd
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
