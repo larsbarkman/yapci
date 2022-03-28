@@ -11,6 +11,11 @@ then
     exit
 fi
 
+# Set parameters
+cryptsetup_passphrase = "Set cryptsetup passphrase here"
+hostname = "Set hostname here"
+root_passphrase = "Set root passphrase here"
+
 # Memory cell clearing of the disk
 pacman -Sy nvme-cli --noconfirm
 nvme format /dev/nvme0 -s 1 -n 1 -f
@@ -28,8 +33,8 @@ mkfs.ext4 /dev/nvme0n1p2
 timedatectl set-ntp true
 
 # Setup encryption on the partition
-echo -n "<passphrase>" | cryptsetup luksFormat -q --type luks2 /dev/nvme0n1p2 -
-echo -n "<passphrase>" | cryptsetup open /dev/nvme0n1p2 luks -
+echo -n "<${cryptsetup_passphrase}" | cryptsetup luksFormat -q --type luks2 /dev/nvme0n1p2 -
+echo -n "<${cryptsetup_passphrase}" | cryptsetup open /dev/nvme0n1p2 luks -
 
 # Create logical volumes 
 pvcreate /dev/mapper/luks
@@ -75,13 +80,13 @@ echo KEYMAP=sv-latin1 >> /etc/vconsole.conf
 echo FONT=ter-128n >> /etc/vconsole.conf
 
 # Create a hostname and hosts file
-echo "<host_name>" > /etc/hostname
+echo "${hostname}" > /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1 localhost" >> /etc/hosts
-echo "127.0.1.1	<host_name>.localdomain	<host_name>" >> /etc/hosts
+echo "127.0.1.1	${hostname}.localdomain	${hostname}" >> /etc/hosts
 
 # Set a root password
-echo -n "<root_passphrase>" | passwd
+echo -n "${root_passphrase}" | passwd
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
