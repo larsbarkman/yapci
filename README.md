@@ -60,9 +60,13 @@ By having a single repository containing all files needed to automatically insta
 
 `# cd yapci`  
 
-`# chmod u+x ./scripts/base-laptop-stage1.sh`  
+`# chmod u+x ./scripts/base-laptop.sh`  
 
 ### Please edit the appropriate values in the files before running them 
+
+`# vim ./scripts/base-laptop.sh` 
+
+### Run script 
 
 `# ./scripts/base-laptop.sh` 
 
@@ -88,7 +92,11 @@ By having a single repository containing all files needed to automatically insta
 
 ### Please edit the appropriate values in the files before running them 
 
-`# ./scripts/post-base.sh`  
+`# vim ./scripts/post-base.sh`  
+
+### Run script
+
+`# ./scripts/post-base.sh` 
 
 ## Other scripts
 - https://dev.to/krushndayshmookh/installing-arch-linux-the-scripted-way-236c
