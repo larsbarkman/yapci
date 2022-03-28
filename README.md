@@ -23,15 +23,15 @@ By having a single repository containing all files needed to automatically insta
 - Edit the appropriate values in the files
 
 ## Instructions
-### Create bootable media
-- Create bootable USB with the latest [Arch Linux ISO](https://www.archlinux.org/download/) (don't forget to validate checksum)
-
 ### Bios settings
 - Update Bios to most recent version
   - [Flash bios](https://www.dell.com/support/article/ca/en/cadhs1/sln171755/updating-the-dell-bios-in-linux-and-ubuntu-environments)
   - SATA Operation = AHCI (Settings/System Configuration)
   - Turn Touchscreen off (Settings/System Configuration) (Optional)
   - Turn Secure Boot off (Settings/Secure Boot)  
+
+### Create bootable media
+- Create bootable USB with the latest [Arch Linux ISO](https://www.archlinux.org/download/) (don't forget to validate checksum)
 
 ### Boot from USB
 - Enter Bios settings (F2 on boot)
