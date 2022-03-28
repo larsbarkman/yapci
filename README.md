@@ -36,7 +36,7 @@ By having a single repository containing all files needed to automatically insta
   - Turn Secure Boot off (Settings/Secure Boot)    
   - Change boot sequence to boot from USB first (Settings/General)
   - Apply and Exit
-- Select: * x86_64 UEFI USB
+- Select: "*x86_64, UEFI*"
 
 ### Load keyboard layout
 `# loadkeys sv-latin1`  
@@ -44,9 +44,9 @@ By having a single repository containing all files needed to automatically insta
 ### Connect to the Internet via wifi (optional)
 `# iwctl`  
 `[iwd]# device list`  
-`[iwd]# station device scan`  
-`[iwd]# station device get-networks`  
-`[iwd]# station device connect SSID`  
+`[iwd]# station wlan0 scan`  
+`[iwd]# station wlan0 get-networks`  
+`[iwd]# station wlan0 connect SSID`  
 `[iwd]# exit`  
 `# ping -c 3 archlinux.org`  
 
