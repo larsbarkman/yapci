@@ -13,8 +13,6 @@ fi
 
 # Set variables
 cryptsetup_passphrase = "Set cryptsetup passphrase here"
-hostname = "Set hostname here"
-root_passphrase = "Set root passphrase here"
 
 # Memory cell clearing of the disk
 pacman -Sy nvme-cli --noconfirm

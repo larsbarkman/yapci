@@ -8,6 +8,10 @@ then
     exit
 fi
 
+# Set variables
+hostname = "Set hostname here"
+root_passphrase = "Set root passphrase here"
+
 # Create a hostname and hosts file
 echo "$hostname" >> /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
