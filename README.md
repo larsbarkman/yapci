@@ -60,9 +60,10 @@ By having a single repository containing all files needed to automatically insta
 
 `# cd yapci`  
 
+### Make the script executable
 `# chmod u+x ./scripts/base-laptop.sh`  
 
-### Please edit the appropriate values in the files before running them 
+### Edit the appropriate values in the file 
 
 `# vim ./scripts/base-laptop.sh` 
 
@@ -88,9 +89,11 @@ By having a single repository containing all files needed to automatically insta
 
 `# cd yapci`  
 
+### Make the script executable
+
 `# chmod u+x /scripts/post-base.sh`  
 
-### Please edit the appropriate values in the files before running them 
+### Edit the appropriate values in the file 
 
 `# vim ./scripts/post-base.sh`  
 
