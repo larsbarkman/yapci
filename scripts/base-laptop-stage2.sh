@@ -35,7 +35,8 @@ echo "127.0.1.1	$hostname.localdomain $hostname" >> /etc/hosts
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
-sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
+sed -i 's/HOOKS=.*/MODULES=HOOKS=(base systemd autodetect keyboard keymap sd-vconsole modconf block sd-encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
+#sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
 
 # Regenerate initrd image
 mkinitcpio -p linux
@@ -57,6 +58,6 @@ echo "title   Arch Linux" > /boot/loader/entries/arch.conf
 echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
 echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
-#echo "options cryptdevice=UUID=$UUID:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
-#echo "options cryptdevice=UUID=$UUID:root root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
 echo "options cryptdevice=UUID=$UUID:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+#echo "options cryptdevice=UUID=$UUID:root root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+#echo "options cryptdevice=UUID=$UUID:lvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
