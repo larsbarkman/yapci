@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Increase font size
-setfont ter-128n
-
 # Make sure the script is not accidentally run
 read -p 'Are you sure that you want to run the script? [y/N]: ' shrun
 if ! [ $shrun = 'y' ] && ! [ $shrun = 'Y' ]
@@ -10,6 +7,9 @@ then
     echo "The script will not run"
     exit
 fi
+
+# Increase font size
+setfont ter-128n
 
 # Memory cell clearing of the disk
 pacman -Sy nvme-cli --noconfirm
@@ -54,50 +54,3 @@ pacstrap /mnt base base-devel linux linux-firmware lvm2 intel-ucode man-db man-p
 
 # Create file systems table (fstab) 
 genfstab -U /mnt >> /mnt/etc/fstab
-
-# Changes the root directory for the current running process
-arch-chroot /mnt
-
-# Set local time zone to Stockholm
-ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
-echo "TZ='Europe/Stockholm'; export TZ" >> $HOME/.profile
-hwclock --systohc
-
-# Set locale to US English and UTF-8
-sed -i '/en_US.UTF-8 UTF-8/s/^#//g' /etc/locale.gen
-locale-gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-
-# Set keyboard layout to Swedish
-echo KEYMAP=sv-latin1 >> /etc/vconsole.conf
-
-# Set font
-echo FONT=ter-128n >> /etc/vconsole.conf
-
-# Create a hostname and hosts file
-echo "set hostname here" > /etc/hostname
-echo "127.0.0.1	localhost" >> /etc/hosts
-echo "::1 localhost" >> /etc/hosts
-echo "127.0.1.1	<set hostname here>.localdomain	<set hostname here>" >> /etc/hosts
-
-# Set a root password
-echo -n "Set root passphrase here" | passwd --stdin
-
-# Configure mkinitcpio with modules needed for the initrd image
-sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
-sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)/' /etc/mkinitcpio.conf
-
-# Regenerate initrd image
-mkinitcpio -p linux
-
-# Get UUID of /dev/nvme0n1p2
-UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
-
-# Print to see that it worked
-echo "${UUID}"
-
-# Install boot loader (systemd-boot)
-bootctl --path=/mnt/boot install
-
-# Check content of "/boot/loader/loader.conf" to determine how to handle the file (create lines or change them)
-# Check content of "/boot/loader/entries/arch.conf" to determine how to handle the file (create lines or change them)

@@ -44,10 +44,11 @@ By having a single repository containing all files needed to automatically insta
 ### Connect to the Internet via wifi (optional)
 `# iwctl`  
 `[iwd]# device list`  
-`[iwd]# station wlan0 scan`  
-`[iwd]# station wlan0 get-networks`  
-`[iwd]# station wlan0 connect SSID`  
+`[iwd]# station <wlan id> scan`  
+`[iwd]# station <wlan id> get-networks`  
+`[iwd]# station <wlan id> connect <SSID>`  
 `[iwd]# exit`  
+
 `# ping -c 3 archlinux.org`  
 
 ### Get Git
@@ -60,16 +61,21 @@ By having a single repository containing all files needed to automatically insta
 
 `# cd yapci`  
 
-### Make the script executable
-`# chmod u+x ./scripts/base-laptop.sh`  
+### Make the scripts executable
+`# chmod u+x ./scripts/*`  
 
-### Edit the appropriate values in the file 
+### Edit the appropriate values in the files 
+`# vim ./scripts/base-laptop-stage1.sh`  
+`# vim ./scripts/base-laptop-stage2.sh`  
 
-`# vim ./scripts/base-laptop.sh` 
+### Run first stage 
+`# ./scripts/base-laptop-stage1.sh` 
 
-### Run script 
+### Changes the root directory for the current running process
+`# arch-chroot /mnt`  
 
-`# ./scripts/base-laptop.sh` 
+### Run second stage 
+`# ./scripts/base-laptop-stage2.sh` 
 
 ### Reboot
 `# exit`  
@@ -89,16 +95,13 @@ By having a single repository containing all files needed to automatically insta
 
 `# cd yapci`  
 
-### Make the script executable
-
-`# chmod u+x /scripts/post-base.sh`  
+### Make the scripts executable
+`# chmod u+x ./scripts/*`  
 
 ### Edit the appropriate values in the file 
-
 `# vim ./scripts/post-base.sh`  
 
 ### Run script
-
 `# ./scripts/post-base.sh` 
 
 ## Other scripts and guides

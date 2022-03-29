@@ -93,11 +93,18 @@ mkinitcpio -p linux
 # Get UUID of /dev/nvme0n1p2
 UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 
-# Print to see that it worked
-echo "${UUID}"
-
 # Install boot loader (systemd-boot)
-bootctl --path=/mnt/boot install
+bootctl --path=/boot install
 
-# Check content of "/boot/loader/loader.conf" to determine how to handle the file (create lines or change them)
-# Check content of "/boot/loader/entries/arch.conf" to determine how to handle the file (create lines or change them)
+# vi /boot/loader/loader.conf
+echo "timeout 5" > /boot/loader/loader.conf
+echo "#console-mode keep" >> /boot/loader/loader.conf
+echo "default arch-*" >> /boot/loader/loader.conf
+echo "editor no " >> /boot/loader/loader.conf
+
+# vi /mnt/boot/loader/entries/arch.conf
+echo "title   Arch Linux" >> /boot/loader/entries/arch.conf
+echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
+echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
+echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
+echo "options cryptdevice=UUID=${UUID}:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
