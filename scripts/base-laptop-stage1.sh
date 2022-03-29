@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Include static variables
-source /variables.conf
-
 # Make sure the script is not accidentally run
 read -p 'Are you sure that you want to run the script? [y/N]: ' shrun
 if ! [ $shrun = 'y' ] && ! [ $shrun = 'Y' ]
@@ -10,6 +7,9 @@ then
     echo "The script will not run"
     exit
 fi
+
+# Set variables for the scripts here
+cryptsetup_passphrase = "Set cryptsetup passphrase here"
 
 # Increase font size
 setfont ter-128n
@@ -31,8 +31,8 @@ mkfs.ext4 /dev/nvme0n1p2
 timedatectl set-ntp true
 
 # Setup encryption on the partition
-echo -n "Set cryptsetup passphrase here" | cryptsetup luksFormat -q --type luks2 /dev/nvme0n1p2 -
-echo -n "Set cryptsetup passphrase here" | cryptsetup open /dev/nvme0n1p2 luks -
+echo -n "$cryptsetup_passphrase" | cryptsetup luksFormat -q --type luks2 /dev/nvme0n1p2 -
+echo -n "$cryptsetup_passphrase" | cryptsetup open /dev/nvme0n1p2 luks -
 
 # Create logical volumes 
 pvcreate /dev/mapper/luks

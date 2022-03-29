@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Include static variables
-source /variables.conf
-
 # Make sure the script is not accidentally run
 read -p 'Are you sure that you want to run the script? [y/N]: ' shrun
 if ! [ $shrun = 'y' ] && ! [ $shrun = 'Y' ]
@@ -10,6 +7,9 @@ then
     echo "The script will not run"
     exit
 fi
+
+# Set variables for the scripts here
+hostname = "set hostname here"
 
 # Set local time zone to Stockholm
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
@@ -28,10 +28,10 @@ echo KEYMAP=sv-latin1 >> /etc/vconsole.conf
 echo FONT=ter-128n >> /etc/vconsole.conf
 
 # Create a hostname and hosts file
-echo "set hostname here" > /etc/hostname
+echo "$hostname" > /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1 localhost" >> /etc/hosts
-echo "127.0.1.1	<set hostname here>.localdomain	<set hostname here>" >> /etc/hosts
+echo "127.0.1.1	$hostname.localdomain $hostname" >> /etc/hosts
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
@@ -52,12 +52,11 @@ echo "editor no " >> /boot/loader/loader.conf
 # Get UUID of /dev/nvme0n1p2
 UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 
-printf "$UUID"
-
 # Update /boot/loader/entries/arch.conf
 echo "title   Arch Linux" > /boot/loader/entries/arch.conf
 echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
 echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
 #echo "options cryptdevice=UUID=$UUID:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
-echo "options cryptdevice=UUID=$UUID:root root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+#echo "options cryptdevice=UUID=$UUID:root root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+echo "options cryptdevice=UUID=$UUID:cryptlvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
