@@ -55,7 +55,7 @@ UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 printf "$UUID"
 
 # Update /boot/loader/entries/arch.conf
-echo "title   Arch Linux" >> /boot/loader/entries/arch.conf
+echo "title   Arch Linux" > /boot/loader/entries/arch.conf
 echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
 echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
