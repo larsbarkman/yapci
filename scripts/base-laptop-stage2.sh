@@ -59,4 +59,5 @@ echo "title   Arch Linux" > /boot/loader/entries/arch.conf
 echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
 echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
-echo "options cryptdevice=UUID=$UUID:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+#echo "options cryptdevice=UUID=$UUID:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+echo "options cryptdevice=UUID=$UUID:root root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
