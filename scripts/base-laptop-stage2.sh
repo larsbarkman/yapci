@@ -35,29 +35,38 @@ echo "127.0.1.1	$hostname.localdomain $hostname" >> /etc/hosts
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
-sed -i 's/HOOKS=.*/MODULES=HOOKS=(base systemd autodetect keyboard keymap sd-vconsole modconf block sd-encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
-#sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
+#sed -i 's/HOOKS=.*/MODULES=HOOKS=(base systemd autodetect keyboard keymap sd-vconsole modconf block sd-encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
+sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
 
 # Regenerate initrd image
 mkinitcpio -p linux
 
-# Install boot loader (systemd-boot)
-bootctl --path=/boot install
+
+# Install boot loader (grub)
+#pacman --noconfirm -S grub
+#bootctl --path=/boot install
+
+# update /etc/default/grub (grub bootloader)
+#echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
+#echo "GRUB_CMDLINE_LINUX="cryptdevice=UUID=$UUID:cryptlvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet"" >> /boot/loader/entries/arch.conf
+
+# Install GRUB to the mounted ESP for UEFI booting
+#grub-install --target=x86_64-efi --efi-directory=/boot
 
 # Update /boot/loader/loader.conf
-echo "timeout 5" > /boot/loader/loader.conf
-echo "#console-mode keep" >> /boot/loader/loader.conf
-echo "default arch-*" >> /boot/loader/loader.conf
-echo "editor no " >> /boot/loader/loader.conf
+#echo "timeout 5" > /boot/loader/loader.conf
+#echo "#console-mode keep" >> /boot/loader/loader.conf
+#echo "default arch-*" >> /boot/loader/loader.conf
+#echo "editor no " >> /boot/loader/loader.conf
 
 # Get UUID of /dev/nvme0n1p2
-UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
+#UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 
 # Update /boot/loader/entries/arch.conf
-echo "title   Arch Linux" > /boot/loader/entries/arch.conf
-echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
-echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
-echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
-echo "options cryptdevice=UUID=$UUID:luks root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
+#echo "title   Arch Linux" > /boot/loader/entries/arch.conf
+#echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
+#echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
+#echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
+#echo "options cryptdevice=UUID=$UUID:cryptlvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
 #echo "options cryptdevice=UUID=$UUID:root root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
 #echo "options cryptdevice=UUID=$UUID:lvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet" >> /boot/loader/entries/arch.conf
