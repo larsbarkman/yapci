@@ -40,9 +40,6 @@ sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefo
 # Regenerate initrd image
 mkinitcpio -p linux
 
-# Get UUID of /dev/nvme0n1p2
-UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
-
 # Install boot loader (systemd-boot)
 bootctl --path=/boot install
 
@@ -51,6 +48,9 @@ echo "timeout 5" > /boot/loader/loader.conf
 echo "#console-mode keep" >> /boot/loader/loader.conf
 echo "default arch-*" >> /boot/loader/loader.conf
 echo "editor no " >> /boot/loader/loader.conf
+
+# Get UUID of /dev/nvme0n1p2
+UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 
 # vi /mnt/boot/loader/entries/arch.conf
 echo "title   Arch Linux" >> /boot/loader/entries/arch.conf
