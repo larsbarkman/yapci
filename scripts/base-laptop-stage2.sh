@@ -51,9 +51,9 @@ GRUB_CMDLINE_LINUX="GRUB_CMDLINE_LINUX="cryptdevice=UUID=$UUID:cryptlvm root=/de
 sed -i 's/GRUB_CMDLINE_LINUX=""/$GRUB_CMDLINE_LINUX/' /etc/default/grub
 
 # Install GRUB to the mounted ESP for UEFI booting
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+#grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 #Generate the main configuration file
-grub-mkconfig -o /boot/grub/grub.cfg
+#grub-mkconfig -o /boot/grub/grub.cfg
 
 # Update /boot/loader/loader.conf
 #echo "timeout 5" > /boot/loader/loader.conf
