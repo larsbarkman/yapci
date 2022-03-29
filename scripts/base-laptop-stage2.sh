@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Include static variables
-source variables.conf
+source /variables.conf
 
 # Make sure the script is not accidentally run
 read -p 'Are you sure that you want to run the script? [y/N]: ' shrun
@@ -32,9 +32,6 @@ echo "set hostname here" > /etc/hostname
 echo "127.0.0.1	localhost" >> /etc/hosts
 echo "::1 localhost" >> /etc/hosts
 echo "127.0.1.1	<set hostname here>.localdomain	<set hostname here>" >> /etc/hosts
-
-# Set a root password
-echo -n "Set root passphrase here" | passwd --stdin
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf

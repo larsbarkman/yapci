@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Include static variables
-source variables.conf
+source /variables.conf
 
 # Make sure the script is not accidentally run
 read -p 'Are you sure that you want to run the script? [y/N]: ' shrun

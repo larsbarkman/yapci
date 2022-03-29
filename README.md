@@ -74,6 +74,9 @@ By having a single repository containing all files needed to automatically insta
 ### Changes the root directory for the current running process
 `# arch-chroot /mnt`  
 
+### Set root password
+`# passwd`  
+
 ### Run second stage 
 `# ./scripts/base-laptop-stage2.sh` 
 
