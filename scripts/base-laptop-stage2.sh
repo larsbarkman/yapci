@@ -9,7 +9,7 @@ then
 fi
 
 # Set variables for the scripts here
-hostname = "set hostname here"
+hostname="set hostname here"
 
 # Set local time zone to Stockholm
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime

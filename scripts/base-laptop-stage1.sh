@@ -9,7 +9,7 @@ then
 fi
 
 # Set variables for the scripts here
-cryptsetup_passphrase = "Set cryptsetup passphrase here"
+cryptsetup_passphrase="Set cryptsetup passphrase here"
 
 # Increase font size
 setfont ter-128n
@@ -31,8 +31,8 @@ mkfs.ext4 /dev/nvme0n1p2
 timedatectl set-ntp true
 
 # Setup encryption on the partition
-echo -n "$cryptsetup_passphrase" | cryptsetup luksFormat -q --type luks2 /dev/nvme0n1p2 -
-echo -n "$cryptsetup_passphrase" | cryptsetup open /dev/nvme0n1p2 luks -
+echo -n $cryptsetup_passphrase | cryptsetup luksFormat -q --type luks2 /dev/nvme0n1p2 -
+echo -n $cryptsetup_passphrase | cryptsetup open /dev/nvme0n1p2 luks -
 
 # Create logical volumes 
 pvcreate /dev/mapper/luks
