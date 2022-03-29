@@ -13,16 +13,16 @@ hostname="set hostname here"
 
 # Set local time zone to Stockholm
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
-echo "TZ='Europe/Stockholm'; export TZ" >> $HOME/.profile
+echo "TZ='Europe/Stockholm'; export TZ" > $HOME/.profile
 hwclock --systohc
 
 # Set locale to US English and UTF-8
 sed -i '/en_US.UTF-8 UTF-8/s/^#//g' /etc/locale.gen
 locale-gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 # Set keyboard layout to Swedish
-echo KEYMAP=sv-latin1 >> /etc/vconsole.conf
+echo KEYMAP=sv-latin1 > /etc/vconsole.conf
 
 # Set font
 echo FONT=ter-128n >> /etc/vconsole.conf
@@ -43,10 +43,12 @@ mkinitcpio -p linux
 
 # Get UUID of /dev/nvme0n1p2
 UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
+printf $UUID
 
 # update /etc/default/grub (grub bootloader)
 sed -i 's/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/' /etc/default/grub
-sed -i 's/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="cryptdevice=UUID=$UUID:cryptlvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet"/' /etc/default/grub
+GRUB_CMDLINE_LINUX="GRUB_CMDLINE_LINUX="cryptdevice=UUID=$UUID:cryptlvm root=/dev/vg0/root resume=/dev/vg0/swap rw quiet""
+sed -i 's/GRUB_CMDLINE_LINUX=""/$GRUB_CMDLINE_LINUX/' /etc/default/grub
 
 # Install GRUB to the mounted ESP for UEFI booting
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
