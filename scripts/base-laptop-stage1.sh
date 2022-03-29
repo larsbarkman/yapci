@@ -57,3 +57,8 @@ pacstrap /mnt base base-devel linux linux-firmware lvm2 intel-ucode man-db man-p
 
 # Create file systems table (fstab) 
 genfstab -U /mnt >> /mnt/etc/fstab
+
+# Copy installation repo over to /home/yapci
+mkdir /mnt/home/yapci
+cp -R * /mnt/home/yapci
+chmod u+x /mnt/home/yapci/scripts/*
