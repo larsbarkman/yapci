@@ -78,7 +78,7 @@ By having a single repository containing all files needed to automatically insta
 `# passwd`  
 
 ### Run second stage 
-`# ./scripts/base-laptop-stage2.sh` 
+`# ./home/yapci/scripts/base-laptop-stage2.sh` 
 
 ### Reboot
 `# exit`  

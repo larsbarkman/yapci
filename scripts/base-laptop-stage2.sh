@@ -35,7 +35,7 @@ echo "127.0.1.1	<set hostname here>.localdomain	<set hostname here>" >> /etc/hos
 
 # Configure mkinitcpio with modules needed for the initrd image
 sed -i 's/MODULES=.*/MODULES=(ext4)/' /etc/mkinitcpio.conf
-sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)/' /etc/mkinitcpio.conf
+sed -i 's/HOOKS=.*/MODULES=HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt lvm2 filesystems resume fsck)' /etc/mkinitcpio.conf
 
 # Regenerate initrd image
 mkinitcpio -p linux
@@ -43,7 +43,7 @@ mkinitcpio -p linux
 # Install boot loader (systemd-boot)
 bootctl --path=/boot install
 
-# vi /boot/loader/loader.conf
+# Update /boot/loader/loader.conf
 echo "timeout 5" > /boot/loader/loader.conf
 echo "#console-mode keep" >> /boot/loader/loader.conf
 echo "default arch-*" >> /boot/loader/loader.conf
@@ -52,7 +52,9 @@ echo "editor no " >> /boot/loader/loader.conf
 # Get UUID of /dev/nvme0n1p2
 UUID=$(blkid -s UUID -o value /dev/nvme0n1p2)
 
-# vi /mnt/boot/loader/entries/arch.conf
+printf "$UUID"
+
+# Update /boot/loader/entries/arch.conf
 echo "title   Arch Linux" >> /boot/loader/entries/arch.conf
 echo "linux   /vmlinuz-linux" >> /boot/loader/entries/arch.conf
 echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
